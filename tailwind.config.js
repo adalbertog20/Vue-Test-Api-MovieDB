@@ -4,9 +4,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        custom: ['Roboto', 'sans']
-      }
+        custom: ["Roboto", "sans"],
+      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["synthwave"],
+  },
 };

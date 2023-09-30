@@ -16,6 +16,7 @@ export default {
       username: "",
       password: "",
       is_loged: localStorage.getItem("is_loged"),
+      error: ref(false),
     };
   },
   mounted: function () {
@@ -32,7 +33,7 @@ export default {
             this.valid_request_token = value.request_token;
           })
           .catch((error) => {
-            console.error(error);
+            console.log(this.error);
           });
       }, 1000);
 
@@ -92,6 +93,7 @@ export default {
         );
         this.promise_valid_request_token = response.json();
       } catch (error) {
+        this.error = ref(false);
         console.error(error);
       }
     },
@@ -118,15 +120,16 @@ export default {
 };
 </script>
 <template>
+  <span>{{ error }}</span>
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col" v-if="!is_loged">
       <form>
         <div class="mb-6">
-          <label class="block mb-2 text-sm font-medium text-gray-900"
-            >Username</label
-          >
+          <label class="label">
+            <span class="label-text">Username</span>
+          </label>
           <input
-            class="shadow-sm text-sm text-gray-900 border rounded-lg p-2.5"
+            class="input input-bordered input-primary w-full max-w-xs"
             v-model="username"
             type="text"
             placeholder="type your username"
@@ -134,11 +137,11 @@ export default {
           />
         </div>
         <div class="mb-6">
-          <label class="block mb-2 text-sm font-medium text-gray-900"
-            >Password</label
-          >
+          <label class="label">
+            <span class="label-text">Password</span>
+          </label>
           <input
-            class="shadow-sm text-sm text-gray-900 border rounded-lg p-2.5"
+            class="input input-bordered input-primary w-full max-w-xs"
             v-model="password"
             type="password"
             placeholder="type your password"
@@ -146,13 +149,11 @@ export default {
           />
         </div>
         <div class="w-full">
-          <button
-            @click="login"
-            type="button"
-            class="focus:outline-none text-white bg-green-600 hover:bg-green-700 focus:ring-4 font-medium rounded-full text-sm w-full p-2.5 px-5 py-2.5 text-center mr-2 mb-2"
-          >
-            <RouterLink to="/"> Login </RouterLink>
-          </button>
+          <RouterLink to="/">
+            <button @click="login" type="button" class="w-full btn btn-primary">
+              Login
+            </button>
+          </RouterLink>
         </div>
       </form>
     </div>

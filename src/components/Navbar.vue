@@ -4,34 +4,61 @@ export default {
   data() {
     return {
       is_loged: localStorage.getItem("is_loged"),
+      session_id: localStorage.getItem("session_id"),
     };
+  },
+  mounted: function () {
+    this.$forceUpdate();
+  },
+  methods: {
+    logout() {
+      console.log("logout");
+      localStorage.clear();
+      this.$forceUpdate();
+    },
   },
 };
 </script>
 <template>
-  <nav class="bg-black border-gray-200">
-    <div
-      class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-    >
-      <a href="https://flowbite.com/" class="flex items-center">
-        <img src="../assets/ct.png" class="h-12 mr-3" alt="Flowbite Logo" />
-      </a>
-      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-        <ul class="list-none flex flex-row">
-          <li class="mr-2">
-            <RouterLink
-              class="hover:text-red-500 active:text-red-300 no-underline text-white"
-              to="/"
-              >Home</RouterLink
-            >
+  <div class="navbar bg-base-100">
+    <div class="flex-1">
+      <RouterLink class="btn btn-ghost normal-case text-xl" to="/"
+        >CT Movies</RouterLink
+      >
+    </div>
+    <div class="flex-none gap-2">
+      <div class="form-control">
+        <input
+          type="text"
+          placeholder="Search"
+          class="input input-bordered w-24 md:w-auto"
+        />
+      </div>
+      <div v-if="!is_loged">
+        <RouterLink to="/login">Login</RouterLink>
+      </div>
+      <div v-if="is_loged" class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+          <div class="w-10 rounded-full">
+            <img src="../assets/gamer.png" class="text-white" />
+          </div>
+        </label>
+        <ul
+          tabindex="0"
+          class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+        >
+          <li>
+            <a class="justify-between">
+              Profile
+              <span class="badge">New</span>
+            </a>
           </li>
-          <li v-if="!is_loged">
-            <RouterLink class="no-underline text-white" to="/login"
-              >Login</RouterLink
-            >
+          <li><a>Settings</a></li>
+          <li>
+            <button @click="logout" class="btn btn-ghost btn-sm">Logout</button>
           </li>
         </ul>
       </div>
     </div>
-  </nav>
+  </div>
 </template>

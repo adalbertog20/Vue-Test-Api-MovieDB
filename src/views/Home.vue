@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import { ref } from "vue";
 import Movie from "../components/Movie.vue";
 export default {
   components: {
@@ -21,20 +22,20 @@ export default {
     async fetchMovies() {
       const options = {
         method: "GET",
-        url: "https://api.themoviedb.org/3/movie/popular",
-        params: { language: "en-US", page: "1", region: "US" },
+        params: { language: "en-US", page: "1" },
         headers: {
           accept: "application/json",
           Authorization:
             "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1OTBkMzEyZDM1YjUzMzQyZTU5MmM1OTYzNWQ5YjU5ZSIsInN1YiI6IjY1MTQ0ZDAyYTE5OWE2MDBjNDljMWJmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QSQFrA3vcF_XRV6gerBwXmooqC1rzktBYLNkIjY8VDY",
         },
       };
+
       try {
         const response = await axios.get(
-          "https://api.themoviedb.org/3/movie/popular"
+          "https://api.themoviedb.org/3/movie/popular",
+          options
         );
         this.movies = response.data.results;
-        console.log(response.data.results);
       } catch (error) {
         console.error(error);
       }
@@ -45,7 +46,7 @@ export default {
 <template>
   <h2 class="text-center font-custom">Most Popular Movies</h2>
   <div class="flex items-center justify-center">
-    <div class="grid grid-cols-4" v-if="is_loged">
+    <div class="grid grid-cols-4">
       <div class="font-custom" v-for="movie in movies" :key="movie.id">
         <Movie
           @click="
