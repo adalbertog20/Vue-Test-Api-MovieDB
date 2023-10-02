@@ -15,6 +15,7 @@ export default {
       console.log("logout");
       localStorage.clear();
       this.$forceUpdate();
+      this.$router.push({name: 'login'});
     },
   },
 };
@@ -27,13 +28,6 @@ export default {
       >
     </div>
     <div class="flex-none gap-2">
-      <div class="form-control">
-        <input
-          type="text"
-          placeholder="Search"
-          class="input input-bordered w-24 md:w-auto"
-        />
-      </div>
       <div v-if="!is_loged">
         <RouterLink to="/login">Login</RouterLink>
       </div>

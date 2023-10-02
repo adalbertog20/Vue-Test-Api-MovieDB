@@ -120,7 +120,6 @@ export default {
 };
 </script>
 <template>
-  <span>{{ error }}</span>
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col" v-if="!is_loged">
       <form>
